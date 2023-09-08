@@ -2,14 +2,14 @@ module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
-    "airbnb",
+    'airbnb',
     'airbnb-typescript',
-    "airbnb/hooks",
+    'airbnb/hooks',
     'plugin:@typescript-eslint/recommended-type-checked',
     'plugin:@typescript-eslint/stylistic-type-checked',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -18,12 +18,16 @@ module.exports = {
     sourceType: 'module',
     project: ['./tsconfig.json', './tsconfig.node.json'],
     tsconfigRootDir: __dirname,
-   },
+  },
   plugins: ['react-refresh', 'prettier'],
   rules: {
     'react-refresh/only-export-components': [
-      'warn', 
+      'warn',
       { allowConstantExport: true },
+    ],
+    'react/function-component-definition': [
+      2,
+      { namedComponents: 'arrow-function' },
     ],
     'import/no-extraneous-dependencies': [
       'error',
@@ -43,4 +47,4 @@ module.exports = {
       },
     ],
   },
-}
+};
