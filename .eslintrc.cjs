@@ -29,6 +29,15 @@ module.exports = {
       2,
       { namedComponents: 'arrow-function' },
     ],
+    '@typescript-eslint/no-unused-vars': 'warn',
+    'react/prop-types': 'off',
+    'no-param-reassign': [
+      'error',
+      {
+        props: true,
+        ignorePropertyModificationsFor: ['state'],
+      },
+    ],
     'import/no-extraneous-dependencies': [
       'error',
       {
