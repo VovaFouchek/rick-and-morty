@@ -1,0 +1,13 @@
+.inner {
+  width: 100%;
+  max-width: 1260px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.characters__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
