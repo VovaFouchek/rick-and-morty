@@ -13,10 +13,20 @@
     flex-direction: column;
   }
 
+  &.detailCard {
+    max-width: 100%;
+  }
+
   &__image {
     max-width: 230px;
     border-top-left-radius: 9px;
     border-bottom-left-radius: 9px;
+
+    &.detailCard {
+      max-width: 600px;
+      width: 100%;
+      margin-right: 40px;
+    }
 
     @media (max-width: 490px) {
       max-width: initial;
@@ -35,6 +45,7 @@
     font-size: 27px;
     font-weight: 800;
     line-height: 29.7px;
+    cursor: pointer;
   }
 
   &__status {
