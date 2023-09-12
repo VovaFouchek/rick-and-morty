@@ -4,8 +4,12 @@ import { axiosConfig } from './axios';
 export const API = {
   CHARACTERS_ALL: (page: number) =>
     `${axiosConfig.baseURL}/character/?page=${page}`,
-  // todo: idea
   CHARACTERS_BY_ID: (id: string) => `${axiosConfig.baseURL}/character/${id}`,
-  CHARACTERS_BY_VALUE: (value: string) =>
-    `${axiosConfig.baseURL}/character/search/${value}`,
+  CHARACTERS_BY_VALUE: (payload: {
+    page: number;
+    type: string;
+    parameters: string;
+    query: string;
+  }) =>
+    `${axiosConfig.baseURL}/${payload.type}/?${payload.parameters}=${payload.query}&page=${payload.page}`,
 };

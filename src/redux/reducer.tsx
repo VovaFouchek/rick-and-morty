@@ -65,6 +65,10 @@ const charactersSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message;
       });
+    // .addCase(getCharactersByValue.fulfilled, (state, action) => {
+    //   state.isLoading = false;
+    //   state.characters = action.payload.results;
+    // });
   },
 });
 

@@ -1,0 +1,9 @@
+.inner {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 1020px) {
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+}

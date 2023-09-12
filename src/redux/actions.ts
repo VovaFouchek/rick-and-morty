@@ -1,7 +1,11 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { CHARACTERS_FETCH_ALL, CHARACTER_FETCH_BY_ID } from './action-types';
+import {
+  CHARACTERS_FETCH_ALL,
+  CHARACTER_FETCH_BY_ID,
+  CHARACTER_FETCH_BY_VALUE,
+} from './action-types';
 import { Character, Result } from '../shared/types';
 import { API } from '../shared/api/entity.api';
 
@@ -25,6 +29,26 @@ export const getCharacterById = createAsyncThunk(
   async (id: string) => {
     try {
       const { data } = await axios.get<Character>(API.CHARACTERS_BY_ID(id));
+
+      return data;
+    } catch (error) {
+      throw new Error('Server error...');
+    }
+  }
+);
+
+export const getCharactersByValue = createAsyncThunk(
+  CHARACTER_FETCH_BY_VALUE,
+  async (payload: {
+    page: number;
+    type: string;
+    parameters: string;
+    query: string;
+  }) => {
+    try {
+      const { data } = await axios.get<Character>(
+        API.CHARACTERS_BY_VALUE(payload)
+      );
 
       return data;
     } catch (error) {
