@@ -21,8 +21,12 @@ const PopUpContent: React.FC<PopUpContentProps> = ({ onClose }) => {
           {getCharacterData ? getCharacterData?.name : 'unknown'}
         </p>
         <p className={styles.subtitle}>Search criteria:</p>
-        <p className={styles.text}>{getFilterTypesData[0]}</p>
-        <p className={styles.text}>{getFilterTypesData[1]}</p>
+        <p className={styles.text}>
+          {getFilterTypesData ? getFilterTypesData[0] : 'unknown'}
+        </p>
+        <p className={styles.text}>
+          {getFilterTypesData ? getFilterTypesData[1] : 'unknown'}
+        </p>
       </div>
       <Button onClick={onClose}>Close</Button>
     </>
