@@ -46,7 +46,7 @@ export const getCharactersByValue = createAsyncThunk(
     query: string;
   }) => {
     try {
-      const { data } = await axios.get<Character>(
+      const { data } = await axios.get<Result<Character>>(
         API.CHARACTERS_BY_VALUE(payload)
       );
 

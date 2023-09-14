@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ICharactersReducer } from './interfaces';
-import { getCharacterById, getCharacters } from './actions';
+import {
+  getCharacterById,
+  getCharacters,
+  getCharactersByValue,
+} from './actions';
 
 const initialValue: ICharactersReducer = {
   character: {
@@ -33,9 +37,6 @@ const charactersSlice = createSlice({
   name: 'characters',
   initialState: initialValue,
   reducers: {
-    setPagesAmount(state, action: PayloadAction<number>) {
-      state.infoResults.pages = action.payload;
-    },
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
     },
@@ -64,13 +65,14 @@ const charactersSlice = createSlice({
       .addCase(getCharacterById.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
+      })
+      .addCase(getCharactersByValue.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.infoResults = action.payload.info;
+        state.characters = action.payload.results;
       });
-    // .addCase(getCharactersByValue.fulfilled, (state, action) => {
-    //   state.isLoading = false;
-    //   state.characters = action.payload.results;
-    // });
   },
 });
 
-export const { setPagesAmount, setCurrentPage } = charactersSlice.actions;
+export const { setCurrentPage } = charactersSlice.actions;
 export default charactersSlice.reducer;
