@@ -2,15 +2,14 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { TextField } from '@mui/material';
 
-import Button from '../../components/Button';
+import Button from '../../../../components/Button';
+import MultipleSelect, { MultipleSelectProps } from '../MultipleSelect';
 import styles from './filter.module.scss';
-import MultipleSelect, {
-  MultipleSelectProps,
-} from '../../components/MultipleSelect';
 
 interface FilterProps extends MultipleSelectProps {
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
+  handleSubmit: () => void;
 }
 
 const Filter: React.FC<FilterProps> = ({
@@ -22,16 +21,22 @@ const Filter: React.FC<FilterProps> = ({
   setSelectedParameter,
   availableParameters,
   setAvailableParameters,
+  handleSubmit,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const handleToggleChecked = () => setIsOpen((value) => !value);
+
+  const handleToggleChecked = () => {
+    if (isOpen) {
+      setQuery('');
+    }
+    setIsOpen((value) => !value);
+  };
+
+  const buttonTitle = isOpen ? 'remove filter' : 'filter';
 
   return (
     <div className={styles.inner}>
-      <Button
-        label={isOpen ? 'remove filter' : 'filter'}
-        onClick={handleToggleChecked}
-      />
+      <Button onClick={handleToggleChecked}>{buttonTitle}</Button>
 
       {isOpen && (
         <>
@@ -57,6 +62,7 @@ const Filter: React.FC<FilterProps> = ({
               setQuery(event.target.value);
             }}
           />
+          <Button onClick={handleSubmit}>Find</Button>
         </>
       )}
     </div>

@@ -7,7 +7,7 @@ import {
 
 import NotFound from './pages/NotFound';
 import Details from './pages/Details';
-import Board from './pages/Board';
+import Home from './pages/Home';
 import Layout from './layouts/Layout';
 import ROUTERS from './constants/routers';
 
@@ -19,7 +19,7 @@ const App = () => {
         element={<Layout />}
         errorElement={<NotFound />}
       >
-        <Route index element={<Board />} />
+        <Route index element={<Home />} />
         <Route path={ROUTERS.ID} element={<Details />} />
 
         <Route path="*" element={<NotFound />} />

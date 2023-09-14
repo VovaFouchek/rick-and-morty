@@ -1,47 +1,51 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { getCharacters } from '../../redux/actions';
+import { getCharacters, getCharactersByValue } from '../../redux/actions';
 
 import CharacterCard from './components/CharacterCard';
 import CustomPagination from './components/Pagination';
 import ErrorMessage from '../../components/ErrorMessage';
 import Loader from '../../components/Loader';
+import Filter from './components/Filter';
 
-import Filter from '../../layouts/Filter';
-import styles from './board.module.scss';
+import styles from './home.module.scss';
 
-const Board = () => {
-  const dispatch = useAppDispatch();
-  const { characters, infoResults, currentPage, isLoading, error } =
-    useAppSelector((state) => state.characters);
-
+const Home = () => {
   const [selectedType, setSelectedType] = useState<string>('');
   const [selectedParameter, setSelectedParameter] = useState<string>('');
   const [availableParameters, setAvailableParameters] = useState<string[]>([]);
   const [queryValue, setQueryValue] = useState<string>('');
 
+  const dispatch = useAppDispatch();
+
+  const { characters, infoResults, currentPage, isLoading, error } =
+    useAppSelector((state) => state.characters);
+
   useEffect(() => {
-    dispatch(getCharacters(currentPage));
-  }, [dispatch, currentPage]);
+    if (queryValue === '') {
+      dispatch(getCharacters(currentPage));
+    }
+  }, [dispatch, currentPage, queryValue]);
 
-  // todo: Реалізація фільтрації за допомогою query параметрів та запиту на бек
-  // todo: Виникла помилка в проекті, через яку, на жаль, не зміг реалізувати фічу
-  // const handleSubmit = useCallback(async () => {
-  //   await dispatch(
-  //     getCharactersByValue({
-  //       page: currentPage,
-  //       type: selectedType,
-  //       parameters: selectedParameter,
-  //       query: queryValue,
-  //     })
-  //   );
-  // }, [dispatch, currentPage, selectedType, selectedParameter, queryValue]);
+  const handleSubmit = useCallback(() => {
+    if (queryValue !== '' && selectedType !== '') {
+      dispatch(
+        getCharactersByValue({
+          page: currentPage,
+          type: selectedType,
+          parameters: selectedParameter,
+          query: queryValue,
+        })
+      );
+    }
 
-  // useEffect(() => {
-  //   handleSubmit();
-  // }, [handleSubmit]);
+    localStorage.setItem(
+      'filterTypes',
+      JSON.stringify([selectedType, selectedParameter])
+    );
+  }, [dispatch, currentPage, selectedType, selectedParameter, queryValue]);
 
   return (
     <div className={styles.inner}>
@@ -54,13 +58,14 @@ const Board = () => {
         setSelectedParameter={setSelectedParameter}
         availableParameters={availableParameters}
         setAvailableParameters={setAvailableParameters}
+        handleSubmit={handleSubmit}
       />
-      {/* <Button label="Find" onClick={handleSubmit} /> */}
       <div className={styles.characters__container}>
         {characters?.map((character) => (
           <CharacterCard key={character.id} character={character} />
         ))}
       </div>
+
       <CustomPagination pageAmount={infoResults.pages} page={currentPage} />
       {isLoading && <Loader />}
       {!isLoading && error ? <ErrorMessage message={error} /> : null}
@@ -68,4 +73,4 @@ const Board = () => {
   );
 };
 
-export default Board;
+export default Home;

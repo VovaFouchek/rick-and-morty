@@ -7,6 +7,8 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 
+import styles from './multipleSelect.module.scss';
+
 const items = [
   {
     label: 'Location',
@@ -58,7 +60,7 @@ const MultipleSelect: React.FC<MultipleSelectProps> = ({
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <FormControl sx={{ m: 1, width: 215, zIndex: 10 }}>
         <InputLabel>Select Item</InputLabel>
         <Select
@@ -77,7 +79,7 @@ const MultipleSelect: React.FC<MultipleSelectProps> = ({
         </Select>
       </FormControl>
       {selectedType && (
-        <FormControl sx={{ m: 1, width: 215, zIndex: 10 }}>
+        <FormControl sx={{ m: 1, width: 215, zIndex: 9 }}>
           <InputLabel>Select parameter</InputLabel>
           <Select
             value={selectedParameter}

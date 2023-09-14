@@ -12,6 +12,10 @@ interface PaginationProps {
 const CustomPagination: React.FC<PaginationProps> = ({ pageAmount, page }) => {
   const dispatch = useAppDispatch();
 
+  const handleChange = (_: unknown, number: number) => {
+    dispatch(setCurrentPage(number));
+  };
+
   const MyPagination = styled(Pagination)({
     '& .Mui-selected': {
       backgroundColor: '#F5F5F5 !important',
@@ -28,20 +32,8 @@ const CustomPagination: React.FC<PaginationProps> = ({ pageAmount, page }) => {
     },
   });
 
-  const handleChange = (_: unknown, number: number) => {
-    dispatch(setCurrentPage(number));
-  };
-
   return (
     <div className={styles.inner}>
-      {/* <TextField
-    fullWidth
-    label="Search..."
-    value={query}
-    onChange={(event) => {
-      setQuery(event.target.value);
-    }}
-  /> */}
       <div className={styles.pagination}>
         <Stack spacing={2}>
           {!!pageAmount && (

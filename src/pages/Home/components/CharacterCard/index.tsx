@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 
 import { useNavigate } from 'react-router-dom';
 import { Character } from '../../../../shared/types';
@@ -44,7 +43,11 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
       />
 
       <div className={s.card__wrap}>
-        <strong onClick={handleNavigate} className={s.card__title}>
+        <strong
+          onClick={handleNavigate}
+          onKeyDown={handleNavigate}
+          className={s.card__title}
+        >
           {character.name}
         </strong>
         <div className={s.card__status}>
@@ -54,9 +57,17 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
           </p>
         </div>
         <span className={s.card__subtitle}>Last known location:</span>
-        <p className={s.card__text}>{character.location.name}</p>
+        <p className={s.card__text}>
+          {typeof character.location === 'string'
+            ? character.location
+            : character.location?.name}
+        </p>
         <span className={s.card__subtitle}>First seen in:</span>
-        <p className={s.card__text}>{character.origin.name}</p>
+        <p className={s.card__text}>
+          {typeof character.origin === 'string'
+            ? character.origin
+            : character.origin?.name}
+        </p>
         {details && (
           <>
             <span className={s.card__subtitle}>Other Info</span>
