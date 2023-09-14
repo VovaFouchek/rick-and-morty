@@ -32,7 +32,8 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
     return '';
   };
 
-  const handleNavigate = (): void => navigate(`/${character.id}`);
+  const handleNavigate = (): void =>
+    navigate(`/rick-and-morty/${character.id}`);
 
   return (
     <div className={`${s.card} ${changeStylesForDetails()}`}>
