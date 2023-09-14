@@ -1,15 +1,15 @@
 import { Alert, AlertTitle } from '@mui/material';
 
-const ErrorMessage = ({ message = 'missing' }) => {
-  const styledAlert = {
-    position: 'absolute',
-    bottom: '20px',
-    left: '20px',
-    backgroundColor: '#ffb8b8',
-  };
+const alertStyles = {
+  position: 'absolute',
+  bottom: '20px',
+  left: '20px',
+  backgroundColor: '#ffb8b8',
+};
 
+const ErrorMessage = ({ message = 'missing' }) => {
   return (
-    <Alert severity="error" sx={styledAlert}>
+    <Alert severity="error" sx={alertStyles}>
       <AlertTitle>Error</AlertTitle>
       Details: <strong>{message}</strong>
     </Alert>
