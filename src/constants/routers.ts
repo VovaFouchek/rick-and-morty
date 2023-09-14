@@ -1,6 +1,6 @@
 const ROUTERS = {
-  HOME: '/',
-  ID: ':id',
+  HOME: '/rick-and-morty',
+  ID: '/rick-and-morty:id',
 };
 
 export default ROUTERS;
